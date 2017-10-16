@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visualizing Baseball Data</title>
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:700|Roboto:400,400i" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+<body>
+  <h1>Are lefties better at Baseball?</h1>
+  <div id="hand-barplot" class="story-text">
+    <h2>Handedness of Baseball Players</h2>
+    <p>Around 10% of the world population is left-handed [1], however we
+    see a much higher proportion of left-handed inviduals playing baseball.
+    From a sample of 891 baseball players, we see that around 60% are right handed,
+    almost 30% are left handed and 10% are ambidextrous. Do left-handed
+    players perform better at this sport?</p>
+    <div class="plot-container">
+    </div>
+
+  </div>
+  <div id="avg-boxplot" class="story-text">
+    <h2>Batting Average by Handedness</h2>
+    <p>The batting average is a baseball statistic which is defined by the number
+      of hits divided by at bats [2]. The median batting average
+      of left-handed players is higher than right-handed and ambidextrous players.
+      <br>
+      Left-handed players have less variability in their batting average. However,
+      the two highest performers are left-handed.
+    </p>
+    <div class="plot-container">
+    </div>
+  </div>
+  <div id="HR-boxplot" class="story-text">
+    <h2>Home Runs by Handedness</h2>
+    <p>In Baseball an home run is when a batter hits the ball over the edge of
+      the field and then is able to score a point by reaching home safely. A less
+      common type of home run is called a <em>inside-the-par home run</em>. This
+      is when the batter is able to circle all the bases without being  put out by
+      the fielders of the opposite team. [3]
+      <br>
+      Left-handed players have a median number of home runs
+      higher than the other players.
+    </p>
+    <div class="plot-container">
+    </div>
+  </div>
+  <div id="why-better" class="story-text">
+    <h2>What's in the Handedness?</h2>
+    Are left-handed people more athletic? Why do they tend to perform better in
+    baseball and why are they present in higher proportion than in the general
+    population? The short answer: baseball is built for lefties [4].
+
+    <blockquote cite="http://www.livescience.com/2665-baseball-rigged-lefties.html">
+<b>The ballparks:</b> Right field in most parks is shorter than left field
+because of the preponderance of right-handed hitters.
+<br>
+
+<b>Seeing the ball:</b> "A right-handed batter facing a right-handed pitcher actually
+has to pick up the ball visually as it comes from behind his (the batter's) left
+shoulder. The left-handed batter facing the right-handed pitcher has the ball
+coming to him, so he has a much clearer view of pitches."
+<br>
+<b>Getting going:</b> After a right-hander connects with a ball, his momentum spins him
+toward the third-base side. He must regroup to take even his first step toward
+first base. A left-hander's momentum carries him directly toward first. "The
+left-handed batter has a 5-foot advantage over the right-handed batter," Peters
+calculates. "And that means the lefty travels the 90 feet to first roughly
+one-sixth of a second faster than the righty. That translates to more base hits
+for the left-hander, whether singles or extra base hits because lefties are
+getting to the bases more quickly."
+    </blockquote>
+    <p class="citation-from"><em>from: <a href="http://www.livescience.com/2665-baseball-rigged-lefties.html">http://www.livescience.com/2665-baseball-rigged-lefties.html</a></em></p>
+
+  </div>
+  <div id="references" class="story-text">
+    <h2>References</h2>
+    <ol>
+      <li> http://psycnet.apa.org/journals/bul/84/3/385/ </li>
+      <li> https://en.wikipedia.org/wiki/Batting_average#Major_League_Baseball</li>
+      <li> https://en.wikipedia.org/wiki/Home_run#Inside-the-park_home_run </li>
+      <li> http://www.livescience.com/2665-baseball-rigged-lefties.html </li>
+
+    </ol>
+  </div>
+  <script src="js/create_barplot.js"></script>
+  <script src="js/d3-tip.js"></script>
+  <script src="js/create_boxplot.js"></script>
+  <script>
+  d3.csv("data/baseball_data_subset.csv", function(d){
+  // + sign before variable, converts to number
+    return{
+      "name": d.name,
+      "handedness": d.handedness,
+      "height": +d.height,
+      "weight": +d.weight,
+      "avg": +d.avg,
+      "HR": +d.HR
+    };
+  },function(data){
+    draw_bar_plot(data);
+    draw_box_plot(data, "avg");
+    draw_box_plot(data, "HR");
+  });
+  </script>
+</body>
+</html>
